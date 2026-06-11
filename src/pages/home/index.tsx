@@ -35,7 +35,7 @@ export function Home() {
                 Ano: 2025 | KM: 14.800
               </span>
               <strong className="text-red-600 text-xl">R$ 18.800</strong>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-gray-600">
                 📍 Rio de Janeiro | RJ
               </span>
             </div>
