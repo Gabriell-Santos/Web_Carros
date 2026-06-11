@@ -7,10 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z
-    .string()
-    .email("Insira um email válido")
-    .nonempty("O email é obrigatório"),
+  email: z.string().email("Insira um email válido"),
+
   password: z.string().nonempty("Senha é obrigatória"),
 });
 
