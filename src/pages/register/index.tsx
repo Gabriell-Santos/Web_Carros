@@ -1,20 +1,22 @@
 import { Container } from "../../components/Container/index";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
 import LogoImg from "../../assets/logo.svg";
 import { Input } from "../../components/input/index";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { auth } from "../../services/firebase/ConnectionFirebase";
 
 const schema = z.object({
   name: z.string().nonempty("Digite seu nome"),
   email: z
     .string()
-    .email("Insira um email válido")
+
     .nonempty("O email é obrigatório"),
   password: z
     .string()
-    .min(6, "A senha deve ter no mínimo 6 caracteres")
+    .min(5, "A senha deve ter no mínimo 5 caracteres")
     .nonempty("Senha é obrigatória"),
 });
 
@@ -30,8 +32,16 @@ export function Register() {
     mode: "onChange",
   });
 
-  function submit(data: FormData) {
-    console.log(data);
+  async function submit(data: FormData) {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(async (user) => {
+        await updateProfile(user.user, {
+          displayName: data.name,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -103,7 +113,7 @@ export function Register() {
                 </label>
                 <Input
                   type="password"
-                  placeholder="Defina sua senha"
+                  placeholder="Minino 5 Caracteres"
                   name="password"
                   register={register}
                   error={errors?.password?.message}
@@ -122,7 +132,7 @@ export function Register() {
               Já tem uma conta?
               <Link
                 to="/login"
-                className="text-red-600 hover:text-red-700 font-medium transition-colors"
+                className="text-red-600 hover:text-red-700 font-medium transition-colors px-0.5"
               >
                 Fazer login
               </Link>
