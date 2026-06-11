@@ -6,7 +6,7 @@ export function Header() {
   const loadingAuth = false;
   return (
     <div className="w-full flex items-center justify-center mx-auto h-16 bg-gray-100 drop-shadow mb-4">
-      <header className=" w-full flex max-w-7xl items-center justify-between px-2">
+      <header className=" w-full flex max-w-7xl items-center justify-between px-4">
         <Link to={"/"}>
           <img src={LogoImg} alt="Logo do Site" />
         </Link>
